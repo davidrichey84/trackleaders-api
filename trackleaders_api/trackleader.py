@@ -14,5 +14,5 @@ def get_races():
 
 
 def parse(page):
-    RaceParser(page)
-    return RaceParser.parse()
+    return RaceParser(page)
+    
