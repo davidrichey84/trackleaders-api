@@ -8,14 +8,14 @@ from .models.route import Route
 # TO-DO: Parent parser class
 #class Parser(object):
 
-class RaceParser(object):
+class RaceParser():
     def __init__(self, page):
         #self.race_url = race_url
         #self.race = race_name
         self.page = page
 
-    def _parse(self, page):
-        soup = BeautifulSoup(page.content, "html.parser")
+    def parse(self):
+        soup = BeautifulSoup(self.page.content, "html.parser")
         active_races = soup.find_all("div", class_="activetrackers")
         for item in active_races:
             race_links = item.find_all("a")
@@ -28,8 +28,6 @@ class RaceParser(object):
                     #print(f"Race Title: {race_title}   Race Link: {href}")
                     active_race_list.append(Race(race_name=race_title, race_link=href, race_active=True))
                     #active_race_list.append({"name": race_title, "race_link": href})
-        
-        
         return active_race_list
 
 class RaceRouteParser(object):
