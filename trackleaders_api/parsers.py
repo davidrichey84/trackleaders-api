@@ -35,9 +35,11 @@ class RaceRouteParser(object):
         page = self.get_page(race_link)
         if page is not None:
             soup = BeautifulSoup(page.content, "html.parser")
-            route_options = soup.find_all(id="lbcourselabel")
-            if len(route_options) > 0:
-                race_routes_raw = route_options[0].next_sibling()
+            route_dropdown = soup.find('select', {'name': 'leaderboardroutedropdown'})
+            if len(route_dropdown) > 0:
+                options = route_dropdown.find_all('option')
+                race_route = [option.text for option in options]
+                return race_route
             
         
     def get_page(self, race_link):

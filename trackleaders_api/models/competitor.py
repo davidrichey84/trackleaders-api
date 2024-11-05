@@ -1,12 +1,11 @@
-from asyncio import SendfileNotAvailableError
 from time import time
 from pydantic import BaseModel
 from .route import Route
-from typing import List, Dict
+from typing import List, Dict, Optional
 
 class Competitor(BaseModel):
     competitor_name: str
-    competitor_from: str
+    competitor_from: Optional[str]
     # update this to route model
     #competitor_route: Route
     # update this to route model
