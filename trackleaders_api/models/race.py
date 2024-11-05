@@ -73,7 +73,20 @@ class Race(BaseModel):
                                 competitor_dict['competitor_next_waypoint'] = cell_texts[1].split(' ')[0]
                             elif cell_texts[0].lower() == 'distance to next waypoint':
                                 competitor_dict['competitor_distance_to_next_waypoint'] = cell_texts[1].split(' ')[0]
-                    print(competitor_dict)
+                    competitor_info = competitor_soup.find_all('b')
+                    for info in competitor_info:
+                        if info.get_text().lower().split(':')[0] == 'from':
+                            competitor_dict['competitor_from'] = info.nextSibling
+                        elif info.get_text().lower().split(':')[0] == 'format':
+                            competitor_dict['competitor_race_format'] = info.nextSibling
+                        elif info.get_text().lower().split(':')[0] == 'age':
+                            competitor_dict['competitor_age'] = info.nextSibling
+                        elif info.get_text().lower().split(':')[0] == 'bike':
+                            competitor_dict['competitor_equipment'] = info.nextSibling
+                        elif info.get_text().lower().split(':')[0] == 'route':
+                            for route in self.race_routes:
+                                if route.route_name == info.nextSibling.lstrip():
+                                    competitor_dict['competitor_route'] = route
                     self.race_competitors.append(Competitor.model_validate(competitor_dict))
 
     def get_routes(self):

@@ -6,11 +6,10 @@ from typing import List, Dict, Optional
 class Competitor(BaseModel):
     competitor_name: str
     competitor_from: Optional[str] = None
-    # update this to route model
-    #competitor_route: Route
-    # update this to route model
+    competitor_route: Route = None
+    competitor_race_format: Optional[str] = None
     competitor_age: Optional[int] = None
-    competitor_equipment: Optional[dict] = None
+    competitor_equipment: Optional[str] = None
     competitor_status: str
     competitor_speed_units: Optional[str] = None
     competitor_elevation_units: Optional[str] = None
